@@ -72,7 +72,6 @@ The project is organized as follows:
 - `src/store/`: Redux store configuration, actions, and reducers.
 - `src/api/`: api setup.
 - `src/mirage/server.ts`: MirageJS server setup.
-- `src/test/`: Test files for components and Redux slices.
 
 ---
 
