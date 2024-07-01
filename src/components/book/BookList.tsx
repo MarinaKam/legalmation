@@ -16,6 +16,18 @@ type BookListProps = {
   onDelete: (bookId: string) => void;
 };
 
+const formatDate = (dateString: string): string => {
+  if (!dateString) {
+    return '';
+  }
+
+  const date = new Date(dateString);
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const year = date.getFullYear();
+  return `${month}/${day}/${year}`;
+};
+
 export const BookList: FC<BookListProps> = ({ onDelete }) => {
   const books = useAppSelector((state) => state.authors.authorBooks);
   const isBookLoading = useAppSelector((state) => state.authors.isBookLoading);
@@ -50,7 +62,12 @@ export const BookList: FC<BookListProps> = ({ onDelete }) => {
               >
                 <ListItemText
                   primary={book.name}
-                  secondary={book.description}
+                  secondary={(
+                    <Typography noWrap variant="body2" color="text.secondary">
+                      {book.description} <br />
+                      Published date: {formatDate(book?.publishedDate) || ''}
+                    </Typography>
+                  )}
                 />
               </ListItem>
             ))}
