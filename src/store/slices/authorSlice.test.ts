@@ -19,15 +19,15 @@ describe('Author Slice Extra Reducers', () => {
     vi.restoreAllMocks();
   });
 
-  test("initialize slice with initialValue", () => {
-    const listSliceInit = authorSlice(initialState, { type: "unknown" });
+  test('initialize slice with initialValue', () => {
+    const listSliceInit = authorSlice(initialState, { type: 'unknown' });
     expect(listSliceInit).toBe(initialState);
   });
 
-  test("testAddReducer", () => {
+  test('testAddReducer', () => {
     const testData = {
       id: `${new Date().getSeconds()}`,
-      description: "This is for the test section",
+      description: 'This is for the test section',
       name: 'Some Name',
     };
 
