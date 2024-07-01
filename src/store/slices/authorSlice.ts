@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { Author, Book } from '../../types';
 import {
   addAuthor,
-  fetchAuthors,
-  deleteAuthor,
-  updateAuthor,
   addBookToAuthor,
-  fetchAuthorBooks,
+  deleteAuthor,
   deleteBookFromAuthor,
+  fetchAuthorBooks,
+  fetchAuthors,
+  updateAuthor,
 } from '../actions';
-import type { Author, Book } from '../../types';
 
 interface AuthorState {
   authors: Author[];
@@ -29,7 +29,11 @@ export const initialState: AuthorState = {
 const authorSlice = createSlice({
   name: 'authors',
   initialState,
-  reducers: {},
+  reducers: {
+    testAddReducer: (state, action) => {
+      state.authors.push(action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAuthors.pending, (state) => {
@@ -93,7 +97,7 @@ const authorSlice = createSlice({
             (author) => author.id === action.payload.authorId,
           );
           if (authorIndex !== -1) {
-            const newAuthor = {
+            state.authors[authorIndex] = {
               ...state.authors[authorIndex],
               books: [
                 ...(state.authors[authorIndex].books || []),
@@ -104,8 +108,6 @@ const authorSlice = createSlice({
                 action.payload.book.id,
               ],
             };
-
-            state.authors[authorIndex] = newAuthor;
           }
         },
       )
@@ -146,5 +148,6 @@ const authorSlice = createSlice({
   },
 });
 
+export const { testAddReducer } = authorSlice.actions;
 export default authorSlice.reducer;
 export type { AuthorState };

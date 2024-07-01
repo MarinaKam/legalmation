@@ -31,5 +31,6 @@ export const dialogSlice = createSlice({
   },
 });
 
+export const { update, reset } = dialogSlice.actions;
 export type { DialogState };
 export default dialogSlice.reducer;
