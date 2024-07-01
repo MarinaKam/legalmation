@@ -78,8 +78,6 @@ test('opens and closes BookDialog when Add Book button is clicked', async () => 
   const menuList = screen.queryByTestId('author-menu-list')!;
   expect(menuList).toBeInTheDocument();
 
-  screen.debug(menuList);
-
   const previewButton = screen.queryByTestId('author-preview-btn')!;
   fireEvent.click(previewButton);
 
