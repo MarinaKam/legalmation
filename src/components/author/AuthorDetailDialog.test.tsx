@@ -1,18 +1,14 @@
 import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
-import { useAppDispatch } from '../../store/utils';
 import { render } from '../../utils/test-utils';
 import { AuthorDetailDialog } from './AuthorDetailDialog';
+import * as actions from '../../store/actions';
 
-vi.mock('../../store/utils', () => ({
-  useAppDispatch: vi.fn(),
-  useAppSelector: vi.fn(() => ({ authorBooks: [], isBookLoading: false })),
-}));
+vi.spyOn(actions, 'fetchAuthorBooks');
 
 describe('AuthorDetailDialog', () => {
   const handleClose = vi.fn();
-  const mockDispatch = vi.fn();
 
   const author = {
     id: '1',
@@ -23,13 +19,12 @@ describe('AuthorDetailDialog', () => {
   };
 
   beforeEach(() => {
-    vi.mocked(useAppDispatch).mockReturnValue(mockDispatch);
-    // store.dispatch = mockDispatch as unknown as ThunkDispatch<RootState, undefined, Action>;
     vi.clearAllMocks();
   });
 
-  const setup = (open: boolean) => render(
-    <AuthorDetailDialog open={open} selectedAuthor={author} onClose={handleClose} />
+  const setup = (open: boolean, options = {}) => render(
+    <AuthorDetailDialog open={open} selectedAuthor={author} onClose={handleClose} />,
+    options
   );
 
   it('should render dialog when open is true', () => {
@@ -51,9 +46,9 @@ describe('AuthorDetailDialog', () => {
     await waitFor(() => expect(handleClose).toHaveBeenCalled());
   });
 
-  it('should dispatch fetchAuthorBooks when the dialog is opened with an author', async () => {
+  it('should call fetchAuthorBooks when the dialog is opened with an author', async () => {
     setup(true);
 
-    expect(mockDispatch).toBeCalled();
+    expect(actions.fetchAuthorBooks).toHaveBeenCalledWith(author.id);
   });
 });

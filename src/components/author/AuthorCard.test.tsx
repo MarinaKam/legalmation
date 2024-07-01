@@ -2,10 +2,11 @@ import { ThunkDispatch } from '@reduxjs/toolkit';
 import { Action } from 'redux';
 import { describe, it, expect, vi } from 'vitest';
 import { screen, fireEvent, waitFor } from '@testing-library/react';
-import { RootState, store } from '../../store/index.ts';
+
 import { dialogSlice } from '../../store/slices/dialogSlice';
-import type { Author } from '../../types/index.ts';
-import { render } from '../../utils/test-utils.tsx';
+import { render } from '../../utils/test-utils';
+import { RootState, store } from '../../store';
+import type { Author } from '../../types';
 
 import { AuthorCard } from './AuthorCard';
 
@@ -18,7 +19,11 @@ describe('AuthorCard', () => {
     books: [{ id: 'book1', name: 'Book One' }]
   } as Author;
 
-  const setup = () => render(<AuthorCard author={author} />);
+  const setup = (options = {}) => render(<AuthorCard author={author} />, { ...options });
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
   it('displays author information correctly', () => {
     setup();
@@ -49,7 +54,7 @@ describe('AuthorCard', () => {
   it('dispatches update action when update is triggered', () => {
     store.dispatch = vi.fn() as unknown as ThunkDispatch<RootState, undefined, Action>;
 
-    setup();
+    setup({ store });
 
     const actionButton = screen.getByLabelText('actions');
     fireEvent.click(actionButton);

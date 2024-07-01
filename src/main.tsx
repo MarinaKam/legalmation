@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@emotion/react';
 import { CssBaseline } from '@mui/material';
 import { makeServer } from './mirage/server';
-import { store } from './store';
+import { setupStore } from './store';
 import theme from './theme';
 import App from './App';
 import './index.css';
@@ -12,6 +12,8 @@ import './index.css';
 if (import.meta.env.MODE === 'development' || import.meta.env.MODE == 'test') {
   makeServer();
 }
+
+const store = setupStore();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>

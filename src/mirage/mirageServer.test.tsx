@@ -14,14 +14,14 @@ afterEach(() => {
   server.shutdown();
 });
 
-test('создание и получение авторов', async () => {
+test('creating and getting authors', async () => {
   server.create('author', { name: 'Test Author' } as Author);
   const response = await fetch('/api/authors');
   const data = await response.json();
   expect(data.authors[0].name).toBe('Test Author');
 });
 
-test('создание и получение книг', async () => {
+test('creating and getting books', async () => {
   const author = server.create('author', { name: 'Test Author' } as Author);
   server.create('book', { name: 'Test Book 1', authorId: author.id } as Book);
   server.create('book', { name: 'Test Book 2', authorId: author.id } as Book);
@@ -33,7 +33,7 @@ test('создание и получение книг', async () => {
   expect(data[1].name).toBe('Test Book 2');
 });
 
-test('создание и удаление автора', async () => {
+test('creating and deleting an author', async () => {
   const author = server.create('author', { name: 'Test Author' } as Author );
 
   let response = await fetch('/api/authors');
@@ -47,7 +47,7 @@ test('создание и удаление автора', async () => {
   expect(data.authors.length).toBe(0);
 });
 
-test('создание и удаление книги', async () => {
+test('creating and deleting an book', async () => {
   const author = server.create('author', { name: 'Test Author' } as Author);
   const book = server.create('book', { name: 'Test Book', authorId: author.id } as Book);
 
