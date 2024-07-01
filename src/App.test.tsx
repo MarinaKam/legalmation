@@ -1,7 +1,6 @@
 import { expect, test } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 import { screen } from '@testing-library/react';
-
 import { render } from './utils/test-utils.tsx';
 import App from './App';
 
