@@ -57,7 +57,7 @@ The project includes tests to ensure comprehensive coverage of its functionality
 
 ---
 
-**Testing Status**: The majority of unit tests and integration tests have been implemented to demonstrate proficiency with testing practices. These tests cover key functionalities and ensure that the application behaves as expected. For detailed test coverage, refer to the src/test directory in the project repository.
+**Testing Status**: The majority of unit tests and integration tests have been implemented to demonstrate proficiency with testing practices. These tests cover key functionalities and ensure that the application behaves as expected.
 
 ---
 
